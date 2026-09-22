@@ -146,6 +146,12 @@ Planned next milestones include:
 3. safe remediation command generation with validation layers
 4. end-to-end incident processing from Alertmanager webhook to execution plan
 
+## 📅 Devlogs & Daily Progress
+Follow the daily build progress and architectural decisions in [docs/devlogs/](docs/devlogs/).
+
+* [Day 1: Genesis, Schemas & Ingress](docs/devlogs/day-01.md)
+* [Day 2: Kubernetes Telemetry Enricher & Offline Fallback](docs/devlogs/day-02.md)
+
 ## License
 
 This project is currently being developed as an open-source infrastructure tool. See the repository license file for the current terms if one is added to the project.

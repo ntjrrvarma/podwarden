@@ -1,6 +1,10 @@
 import logging
 from fastapi import FastAPI, BackgroundTasks, status
 from src.schemas import AlertmanagerWebhook
+from src.enrichers.k8s import K8sTelemetryEnricher
+
+# Initialize enricher globally (handles local kubeconfig or fallback automatically)
+enricher = K8sTelemetryEnricher()
 
 logging.basicConfig(
     level=logging.INFO,
@@ -30,6 +34,13 @@ def process_alert_pipeline(payload: AlertmanagerWebhook):
             f"Target: {namespace}/{pod_name}"
         )
         # Day 2: Telemetry enrichment (k8s.py) and LLM diagnosis (triage.py) will connect here.
+        # Trigger telemetry enrichment
+        if pod_name != "N/A":
+            telemetry = enricher.fetch_pod_telemetry(namespace, pod_name)
+            logger.info(
+                f"🔍 [ENRICHER] Harvested telemetry for {namespace}/{pod_name} | "
+                f"Restarts: {telemetry['restart_count']} | Last Reason: {telemetry['last_termination_reason']}"
+            )
 
 
 @app.get("/health", status_code=status.HTTP_200_OK)
