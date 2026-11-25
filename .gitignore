@@ -5,3 +5,6 @@ __pycache__/
 venv/
 .pytest_cache/
 .coverage
+# Local AI Playbook & Agent Skills (do not push)
+/.agents/
+/AI_ECOSYSTEM_PLAYBOOK.md
